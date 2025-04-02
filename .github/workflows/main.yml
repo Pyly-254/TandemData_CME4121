@@ -12,6 +12,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Ensure `curl` is installed
+        run: which curl || echo "curl not found!"
+
       - name: Debug JSON File
         run: ls -lah stream.json || echo "stream.json not found!"
 
@@ -26,7 +29,5 @@ jobs:
         run: |
           curl -X POST "https://tandem.autodesk.com/api/v1/timeseries/models/urn:adsk.dtm:8DvJ75BcS1ucPwz-OwXKWQ/streams/AQAAAAwWBV_Lv0xMuvFRxfLBumcAAAAA" \
           -u "user:PRcIiK_UTXuQb4D4xwyhzg" \
-
-          
           -H "Content-Type: application/json" \
           --data-binary @stream.json
