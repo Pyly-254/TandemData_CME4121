@@ -2,22 +2,24 @@ name: Post JSON File to Two URLs
 on:
   push:
     branches:
-    - main # Runs only when pushing to the main branch
+      - main # Runs only when pushing to the main branch
   workflow_dispatch: # Allows manual trigger
+
 jobs:
   post_json:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-      
-    - name: Send JSON Data to First URL
-      run: |
-      curl -X POST "https://https://:PRcIiK_UTXuQb4D4xwyhzg@tandem.autodesk.com/api/v1/timeseries/models/urn:adsk.dtm:8DvJ75BcS1ucPwz-OwXKWQ/streams/AQAAAAwWBV_Lv0xMuvFRxfLBumcAAAAA" \
-      -H "Content-Type: application/json" \
-      -d @stream.json
-    - name: Send JSON Data to Second URL
-      run: |
-        curl -X POST "https://https://:A4a1FQycTdGAmo7ST6w0dw@tandem.autodesk.com/api/v1/timeseries/models/urn:adsk.dtm:8DvJ75BcS1ucPwz-OwXKWQ/streams/AQAAAMxroRRET0NRgiZPShc1GWIAAAAA" \
-        -H "Content-Type: application/json" \
-        -d @stream.json
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Send JSON Data to First URL
+        run: |
+          curl -X POST "https://first-api-url.com" \
+          -H "Content-Type: application/json" \
+          --data-binary @stream.json
+
+      - name: Send JSON Data to Second URL
+        run: |
+          curl -X POST "https://second-api-url.com" \
+          -H "Content-Type: application/json" \
+          --data-binary @stream.json
